@@ -1,11 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Counter from './Counter';
+import { Provider } from 'react-redux';
+
+import Counter, { counterStore } from './Counter';
 
 const App = () => (
-  <div>
+  <Provider store={counterStore}>
     <Counter />
-  </div>
+  </Provider>
 )
 
 render(<App />, document.getElementById('root'));

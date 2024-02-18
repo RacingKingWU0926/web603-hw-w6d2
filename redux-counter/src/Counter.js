@@ -1,18 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    count: 0,
+  },
+  reducers: {
+    increment: state => {
+      state.count += 1;
+    },
+    decrement: state => {
+      state.count -= 1;
+    },
+  },
+});
+
+const { increment, decrement } = counterSlice.actions;
+const counterReducer = counterSlice.reducer;
+
+export const counterStore = configureStore({
+  reducer: {
+    counter: counterReducer
+  }
+});
 
 class Counter extends React.Component {
   state = { count : 0 };
 
   increment = () => {
-    this.setState({
-      count: this.state.count + 1
-    });
+    this.props.dispatch(increment());
   }
 
   decrement = () => {
-    this.setState({
-      count: this.state.count - 1
-    });
+    this.props.dispatch(decrement());
   }
 
   render() {
@@ -20,7 +42,7 @@ class Counter extends React.Component {
       <div>
         <h2>Counter</h2>
         <div>
-          <span>{this.state.count}</span>
+          <span>{this.props.count}</span>
           <button onClick={this.decrement}>-</button>
           <button onClick={this.increment}>+</button>
         </div>
@@ -29,4 +51,10 @@ class Counter extends React.Component {
   }
 }
 
-export default Counter;
+function mapStateToProps(state) {
+  return {
+    count: state.counter.count
+  };
+}
+
+export default connect(mapStateToProps)(Counter);
