@@ -15,3 +15,14 @@ to create the app "redux-counter".
 ```
 $ npm install redux react-redux @reduxjs/toolkit bootstrap
 ```
+
+## Test
+
+### App Home (Initial State)
+![app home](screenshots/app-home.png)
+
+### Increment
+![increment](screenshots/increment.png)
+
+### Decrement
+![decrement](screenshots/decrement.png)
